@@ -1,47 +1,136 @@
+import java.util.Scanner;
+
 public class Main 
 {
-    //sección para declarar variables y constantes (atributos)
-	/** atributos **/
-	/*constantes*/
-	static final byte TAM_TABLERO = 3;
-	static final byte NUM_JUGADORES = 2;
-	static final char CASILLA_VACIA = ' ';
-	static final char CASILLA_X = 'X';
-	static final char CASILLA_0 = 'O';
-	
-	/****************/
-	static final byte GANADOR1=1, GANADOR2=2, EMPATE=0;
-	
+	/**** datos *****/
 	
 	/* variables */
-	static char tablero[][];
-	static byte ganador = 0;
-	static char turno;
+	static int tablero[][];
+	static int ganador;
+	static int pos_jugada_x, pos_jugada_y;
+	static int turno;
+	
+	/* constantes */
+	static final int NUM_FILAS = 3, NUM_COLUMNAS = 3;
+	static final int VACIO=0, X=1, O=2;
+	static final int NUM_JUGADORES = 2;
+	
+	static Scanner miLectorConsola;
+	
+	/*****************/
 	
 	
-	/*
-	 * sección para declarar los métodos o funciones
-	 */
 	
-	//método principal (punto de entrada de mi programa)
-	public static void main( String[] args  )
-	{
-		System.out.println("Hola, Algoritmos 2");
+	/****** métodos *******/
+	
+	/** método principal */
+	/* mi programa empieza su ejecución en esta función...*/
+	public static void main(String[] args)
+	{		
+		tablero = new int[NUM_FILAS][NUM_COLUMNAS];
+		miLectorConsola = new Scanner(System.in);
 		
-		tablero = new char[TAM_TABLERO][TAM_TABLERO];
+		inicializar_tablero();	
+		pintar_tablero();
 		
-		/* inicializar tablero :*/
-		for(int i = 0; i < 3; i++)
+				
+		/* el programa empieza a ejecutarse por acá... */
+		while(   ganador != X || ganador != O  )
 		{
-			for(int j = 0; j < 3; j++)
+			//completar:
+			
+			//obtener jugada
+			//actualizar tablero
+			obtener_jugada();
+			
+						
+			//pintar tablero
+			pintar_tablero();
+			
+			validar_ganador (turno);
+		}
+	}
+	
+	/* Ejercicio 1, punto 1*/
+	public static void inicializar_tablero()
+	{
+		for(int i = 0; i < NUM_FILAS; i++)
+		{
+			for(int j=0; j < NUM_COLUMNAS; j++)
 			{
-				tablero[i][j] = CASILLA_VACIA;
+				tablero[i][j] = VACIO;
 			}
 		}
-		/*...*/
+		/**/
+	}
+	
+	
+	//void significa que no devuelve valor
+	/* Ejercicio 1, punto 2*/
+	public static void obtener_jugada()
+	{
+	    //leer desde consola la jugada y poner el valor en la matriz del 
+		//tablero
+		int jugada_col, jugada_fila;
+		System.out.print("Turno: "+turno+". Dónde desea jugar (fila)?");
+		jugada_fila = miLectorConsola.nextInt();
 		
+		System.out.print("Turno: "+turno+". Dónde desea jugar (columna)?");
+		jugada_col = miLectorConsola.nextInt();
+		
+		tablero[jugada_fila][jugada_col] = turno;
+	}
+	
+	/* Ejercicio 1, punto 3*/
+	/**
+	 * 
+	 * @param figura: X o O
+	 * @return
+	 */
+	public static boolean validar_ganador(int figura)
+	{
+		boolean val_ret = false;
+		/****/
+		/* validar filas */
+		validar_filas();
+		
+		
+		/* validar columnas */
+		validar_columnas();
+		
+		
+		/* validar diagonales */
+		validar_diagonales();
+		
+		/*****/
+		return val_ret;	
 		
 	}
-	/********************************/	
 	
+	public boolean validar_filas(int f)
+	{
+		boolean val_ret = false;
+		if(      )
+		{
+			
+		}
+		
+		
+		return val_ret;	
+		
+	}
+	
+	public static void pintar_tablero()
+	{
+		//pintar el tablero actualizado por consola
+		for(int i = 0; i < NUM_FILAS; i++)
+		{
+			for(int j=0; j < NUM_COLUMNAS; j++)
+			{
+				System.out.print("|"+tablero[i][j]+"|");
+			}//aquí termina de imprimir una fila			
+			System.out.println("");
+		}
+	}	
+
 }
